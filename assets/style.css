@@ -4,12 +4,17 @@ body {
   line-height: 1;
 }
 
+#container {
+  width: 80%;
+  margin-left: 10%;
+}
+
 textarea{
   background: transparent;
   border: none;
   resize: none;
   color: #000000;
-  border-left: 1px solid black;
+  border-left: 2px solid black;
   padding: 10px;
 }
 
@@ -43,7 +48,7 @@ textarea{
 }
 
 .past {
-  background-color: #d3d3d3;
+  background-color: #968181;
   color: white;
 }
 
