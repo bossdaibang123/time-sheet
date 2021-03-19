@@ -1,59 +1,98 @@
 
 
-//set up the table
-var container = $("#container")
 
-/* container
-h2 + input + button
-*/
 
-var containerH2 = $('<h2>')
+// THE JQUERY FILE DONT WORK ?????????
+// THE JMOMENT DONT WORK ?????
 
-containerH2.text("Time"+j + console.log("test"));
-containerH2.css('border', 'black 1px solid');
-container.append(containerH2);
+
 
 // set time for the whole site
+var dayDisplay = $('#currentDay')  
+var currentDay = "moment();"                                                      //moment is not defined
+dayDisplay.text("currentDay.format('dddd MMM Do YYYY, h:mm:ss')");
 
+// calling time list for calender 
 var data = JSON.parse(localStorage.getItem("time")) || []
 
-for (i=9; i<18; i++) {
+for ( i=9; i<18; i++) {
     
-    if (i>=13) {
+    if ( i>=13) {
         var j = i - 12 
     } else {
         j = i
     }
     
-    if (i<12) {
+    if ( i<12) {
         var time = {
             hour : j,
-            morning : true,
             surfix : "AM",
-            data : ""
+            note : ""
         }
     }else {
         var time = {
             hour : j,
-            morning : false,
             surfix : "PM",
-            data : ""
+            note : ""
         }
     }
     data.push(time);
 }
 
+//set up the table
+var container = $("#container");
+container.css( 'display', 'flex');
+container.css( 'flex-direction', 'row');
+
+
+// container  =  repeat the line element by i< data.length 
+for ( i=0; i < data.length; i++) {
+    //console.log( "test" + i )
+    
+    // line elememt  =  time + input + button                                  //ask, it isn't showing up        
+       
+    // time div
+    var containerTime = $('<div>');
+        containerTime.addClass('divTime'+i);
+        containerTime.text("Time");
+        containerTime.css('border', 'black 1px solid');
+        container.append(containerTime);
+        
+    // inpt div    
+    var containerInput = $('<input>');
+        containerInput.addClass('divInput'+i);
+        container.append(containerInput);
+
+    // btn  div    
+    var containerBtn = $('<button>');
+        containerBtn.addClass('saveBtn'+i);
+        container.append(containerBtn);
+};
+
+
 console.log(data)
-
-function updateLS() {
-    localStorage.setItem('time', JSON.stringify(data))
-}
-// made a line "time, input, save btn"
-
-// repeat the line with i< time.length
 
 
 // work with the btn that can save the data
+container.on('click', 'button', function(){
+    // work only with one data.line 
+    //var btnClass = $(this).attr('class');
+    console.log(btnClass)
+
+    // clear the local storage first then add
+    localStorage.clear();
+    containerInput.val('');
+
+
+    // save the input 
+    console.log(containerInput)
+
+});
+
+
 // data save in localStore
+function updateLS() {
+    localStorage.setItem('time', JSON.stringify(data))
+}
 
 //made the line work with time
