@@ -7,19 +7,66 @@ dayDisplay.text(currentDay.format('dddd MMM Do YYYY, h:mm:ss'));
 //localStorage.clear(); 
 
 // make a emty arry to store time list
-var X = localStorage.getItem("localData")
-var data = JSON.parse(X) || []            
 
+var calender = JSON.parse(localStorage.getItem("localData")) || [];            
 
 
 // calling time list for calender 
-
-// if do have data in localstorage, use it
-if (data != null) {
-
-// don't have data, make a new one
-// } else {
-    for ( i=9; i<18; i++) {
+console.log(calender)
+calender = [{
+    ivalue : 1,
+    hour : 9,
+    surfix : 'AM',
+    note : ''
+},
+{
+    ivalue :2 ,
+    hour : 10,
+    surfix : 'AM',
+    note : ''
+},
+{
+    ivalue : 3,
+    hour : 11,
+    surfix : 'AM',
+    note : ''
+},
+{
+    ivalue : 4,
+    hour : 12,
+    surfix : 'PM',
+    note : ''
+},
+{
+    ivalue : 5,
+    hour : 1,
+    surfix : 'pM',
+    note : ''
+},
+{
+    ivalue : 6,
+    hour : 2,
+    surfix : 'PM',
+    note : ''
+},
+{
+    ivalue: 7,
+    hour  : 3,
+    surfix : 'PM',
+    note : ''
+},
+{
+    ivalue: 8,
+    hour  : 4,
+    surfix : 'PM',
+    note : ''
+},{
+    ivalue: 9,
+    hour  : 5,
+    surfix : 'PM',
+    note : ''
+}];
+   /*  for ( i=9; i<18; i++) {
         
         if ( i>=13) {
             var j = i - 12 
@@ -31,20 +78,18 @@ if (data != null) {
             ivalue : i,
             hour : j,
             surfix : "AM",
-            note : ""
+            note : []
         }
         
         if ( i>11) { time.surfix = "PM"; }
-        
-        data.push(time);
-    }
-}
 
+        data.push(time);
+    } */
 // make the line work with time by change the color
 function checkHour (containerInput, index) {
-    if (data[index].ivalue == currentHour) {
+    if (calender[index].ivalue == currentHour) {
         containerInput.addClass('present');
-    } else if (data[index].ivalue < currentHour) {
+    } else if (calender[index].ivalue < currentHour) {
         containerInput.addClass('past');
     } else {
         containerInput.addClass('furture');
@@ -55,20 +100,20 @@ function checkHour (containerInput, index) {
 var container = $("#container");
 
 // container = repeat the line element by i< data.length   
-data.forEach(function (data, index){
+calender.forEach(function (calender, index){
     //   divContainer =  time + input + button
     var  divContainer = $('<div class="row">'); 
 
     // time
     var containerTime = $('<div>');
         containerTime.addClass('time-block hour col-1');
-        containerTime.text(data.hour+':00'+' '+data.surfix);
+        containerTime.text(calender.hour+':00'+' '+calender.surfix);
         divContainer.append(containerTime);
         
     // inpt 
     var containerInput = $('<textarea>');
         containerInput.addClass('description col-10');
-        containerInput.text(data.note);
+        containerInput.text(calender.note);
         containerInput.attr('data-index', index)
         checkHour(containerInput, index);
         divContainer.append(containerInput);        
@@ -76,7 +121,7 @@ data.forEach(function (data, index){
     // button     
     var containerBtn = $('<button><i class="fas fa-save fa"></i>');
         containerBtn.addClass('saveBtn col-1');
-        data.note = containerBtn.val();
+        calender.note = containerBtn.val();
         divContainer.append(containerBtn)
 
     container.append(divContainer); 
@@ -90,22 +135,20 @@ container.on('click', '.saveBtn', function () {
     // specified the text input by add data-idx
     var dataEnteredIndex = dataEntered.attr('data-index');
     // check if user add text or not  
-    if (data[dataEnteredIndex].note === dataEntered.val()) {
+    if (calender[dataEnteredIndex].note === dataEntered.val()) {
         return 
     } else {
         // push the text in dataEntered to note in array data
-        data[dataEnteredIndex].note = dataEntered.val() ;
+        calender[dataEnteredIndex].note = dataEntered.val() ;
     }
 
 
     // check if there is any 
     
    // localStorage.setItem("localData", JSON.stringify(data[dataEnteredIndex].note));
-    localStorage.setItem("localDate", JSON.stringify(data));
+    localStorage.setItem("localDate", JSON.stringify(calender));
+    console.log (JSON.stringify(calender))
 });
-
-console.log( data )
-
 
 
 
