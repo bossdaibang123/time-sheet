@@ -40,8 +40,6 @@ if (data != null) {
     }
 }
 
-localStorage.setItem("localDate", JSON.stringify(data));
-
 // make the line work with time by change the color
 function checkHour (containerInput, index) {
     if (data[index].ivalue == currentHour) {
