@@ -6,14 +6,7 @@ dayDisplay.text(currentDay.format('dddd MMM Do YYYY, h:mm:ss'));
 
 //localStorage.clear(); 
 
-// make a emty arry to store time list
-
-var calender = JSON.parse(localStorage.getItem("localData")) || [];            
-
-
-// calling time list for calender 
-console.log(calender)
-calender = [{
+var     starCalender = [{
     ivalue : 1,
     hour : 9,
     surfix : 'AM',
@@ -65,8 +58,25 @@ calender = [{
     hour  : 5,
     surfix : 'PM',
     note : ''
-}];
-   /*  for ( i=9; i<18; i++) {
+}  
+]    
+// make a emty arry to store time list
+var calender = JSON.parse(localStorage.getItem("localData")) || starCalender;            
+console.log(calender.length)
+
+
+//load the page
+
+console.log(calender)
+/* for (var i = 0; i< localData.length; i++) {
+    var 
+}
+*/
+
+
+// calling time list for calender 
+
+/*  for ( i=9; i<18; i++) {
         
         if ( i>=13) {
             var j = i - 12 
@@ -83,9 +93,9 @@ calender = [{
         
         if ( i>11) { time.surfix = "PM"; }
 
-        data.push(time);
+        calender.push(time);
     } */
-// make the line work with time by change the color
+    // make the line work with time by change the color
 function checkHour (containerInput, index) {
     if (calender[index].ivalue == currentHour) {
         containerInput.addClass('present');
@@ -106,15 +116,15 @@ calender.forEach(function (calender, index){
 
     // time
     var containerTime = $('<div>');
-        containerTime.addClass('time-block hour col-1');
+    containerTime.addClass('time-block hour col-1');
         containerTime.text(calender.hour+':00'+' '+calender.surfix);
         divContainer.append(containerTime);
         
     // inpt 
     var containerInput = $('<textarea>');
-        containerInput.addClass('description col-10');
-        containerInput.text(calender.note);
-        containerInput.attr('data-index', index)
+    containerInput.addClass('description col-10');
+    containerInput.text(calender.note);
+    containerInput.attr('data-index', index)
         checkHour(containerInput, index);
         divContainer.append(containerInput);        
 
@@ -123,13 +133,13 @@ calender.forEach(function (calender, index){
         containerBtn.addClass('saveBtn col-1');
         calender.note = containerBtn.val();
         divContainer.append(containerBtn)
+        
+        container.append(divContainer); 
+    });
 
-    container.append(divContainer); 
-});
-
-// work with the btn that can save and update data
-container.on('click', '.saveBtn', function () {    
-
+    // work with the btn that can save and update data
+    container.on('click', '.saveBtn', function () {    
+        
     // transfer the text input to save button
     var dataEntered = $(this).siblings('textarea');
     // specified the text input by add data-idx
@@ -141,17 +151,13 @@ container.on('click', '.saveBtn', function () {
         // push the text in dataEntered to note in array data
         calender[dataEnteredIndex].note = dataEntered.val() ;
     }
-
-
+    
+    
     // check if there is any 
     
-   // localStorage.setItem("localData", JSON.stringify(data[dataEnteredIndex].note));
-    localStorage.setItem("localDate", JSON.stringify(calender));
+    localStorage.setItem("localData", JSON.stringify(calender));
     console.log (JSON.stringify(calender))
 });
 
-
-
-
-
+console.log(JSON.stringify(calender))
 
